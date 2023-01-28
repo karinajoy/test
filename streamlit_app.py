@@ -1,25 +1,33 @@
 import streamlit as st
-st.title("Reddit Sentiment Analysis")
-st.text("Hi")
-st.text_input("Name")
+import pandas as pd
 
-import time
-import numpy as np
-progress_bar = st.sidebar.progress(0)
-status_text = st.sidebar.empty()
-last_rows = np.random.randn(1, 1)
-chart = st.line_chart(last_rows)
-for i in range(1, 101):
-  new_rows = last_rows[-1, :] + np.random.randn(5, 1).cumsum(axis=0)
-status_text.text("%i%% Complete" % i)
-chart.add_rows(new_rows)
-progress_bar.progress(i)
-last_rows = new_rows
-time.sleep(0.05)
-progress_bar.empty()
-# Streamlit widgets automatically run the script from top to bottom.
-Since
-# this button is not connected to any other logic, it just causes a
-plain
-# rerun.
-st.button("Re-run")
+#Container located at top of UI.
+con = st.container()
+con.write("Inside container")
+
+#Designer function to memorize dataframe display.
+#@st.experimental_memo #(show_spinner=True)
+def load_data():
+    return pd.read_csv("data/reddit_comments.csv")
+
+#Save load_data function into df var. access df in streamlit.
+df = load_data()
+
+
+#Side bar area.
+scrbd = st.expander("Score breakdown")
+comp = st.expander("Comparison")
+
+scrbd.write("Something")
+comp.write("Else")
+#st.sidebar.button("Enter", on_click=st.dataframe(df))
+#st.text_input()
+
+
+#def hide_data():
+    #return st.button("Show grid", on_click=load_data(df))
+
+#def button_check():
+#   print("this button works!")
+
+#btn_chk = button_check()
